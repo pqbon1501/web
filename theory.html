@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QHD - CHV | Lý thuyết</title>
+    <link rel="stylesheet" href="style.css">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+    <ul class="nav">
+        <li><strong><a href="index.html">QUY HOẠCH ĐỘNG VỊ TRÍ CẤU HÌNH</a></strong></li>
+        <li class="active"><a href="theory.html">Lý thuyết</a></li>
+        <li><a href="problem.html">Bài tập</a></li>
+        <li><a href="contribute.html">Đóng góp</a></li>
+    </ul>
+    <header class="other">
+        <h1>QUY HOẠCH ĐỘNG VỊ TRÍ - CẤU HÌNH</h1>
+        
+    </header>
+
+    <main>
+        <!-- <div class="container"> -->
+            
+            <section class="LT">
+                <h1 style="color: #ead457; font-size: 30px;">LÝ THUYẾT</h1>
+                <p>Cho 2 xâu \( A \) có độ dài n và xâu \( B \) có độ dài \( m \). Khi đó, xâu \( A \) được gọi là có thứ tự từ điển (TTTĐ) nhỏ hơn \( B \) khi và chỉ khi 1 trong hai điều kiện sau:</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;TH1: \(n < m\) và \(A[1] = B[1], A[2] = B[2], A[3] = B[3], … , A[n] = B[n] \), nói cách khác, \( A \) là một tiền tố của \( B \).</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;TH2: \(n = m\) và tồn tại một vị trí \( i \) sao cho \(A[1] = B[1], A[2] = B[2], A[3] = B[3], … , A[i - 1] = B[i - 1] \) và \( A[i] < B[i] \).</p>
+                <br>
+                <h3 style="font-style: italic; color: #e4c0ea;">Ví dụ 1:</h3>
+                <p>
+                    
+                    \( A = abcmmm \) <br>
+                    \( B = abcwmm \) <br>
+                    \(\Rightarrow\) Xâu \( A \) có TTTĐ nhỏ hơn xâu \( B \) vì ở vị trí đầu tiên khác nhau (tính từ trái sang) có “\(m\)” < “\(w\)” nên \(A < B\).
+                </p>
+                <h3 style="font-style: italic; color: #e4c0ea;">Ví dụ 2:</h3>
+                <p>
+                    \( A = abcd \) <br>
+                    \( B = abcdef \) <br>
+                    \(\Rightarrow\) Xâu \( A \) có TTTĐ nhỏ hơn xâu \( B \) vì xâu \(A\) có độ dài nhỏ hơn xâu \(B\) và xâu \(A\) là một tiền tố của xâu \(B\).
+                </p>
+                <h2 style="color: #ff9245">Lưu ý:</h2>
+                <p>Với hai số KHÔNG có chữ số "\(0\)" ở đầu, ta xem xét độ dài của số trước, số nào ít chữ số hơn thì số đó nhỏ hơn (ví dụ: \(987 < 1234\)), nếu độ dài 2 số bằng nhau, ta so sánh như hai xâu ký tự (như đã đề cập ở trên).</p>
+                <h2 style="color:aquamarine">Tip:</h2>
+                <p>Ta có thể so sánh hai số không cùng độ dài bằng cách thêm chữ số \(0\) vào đầu số có độ dài nhỏ hơn cho đến khi độ dài 2 số bằng nhau, sau đó so sánh chúng giống với so sánh 2 xâu.</p>
+            </section>
+
+
+
+            <section>
+                <h1 style="color: #ead457; font-size: 30px;"><b>Quy hoạch động (QHĐ) vị trí cấu hình được chia làm 2 loại phổ biến:</b></h1>
+            </section>
+            <section class="BT1">
+                <h2 style="color: aqua;">1. Cho một cấu hình / dãy số / xâu ký tự, tìm xem nó có TTTĐ thứ bao nhiêu</h2>
+                <p><b>Bài toán:</b> Gọi \(G\) là tập hợp các xâu có độ \(n (n \leq 10^5)\), được tạo thành từ 26 chữ cái latinh in thường trong bảng chữ cái tiếng anh (“\(a\)” tới “\(z\)”). Cho xâu S độ dài n, hỏi sau khi sắp xếp tập G tăng dần theo TTTĐ thì xâu S có TTTĐ thứ bao nhiêu?</p>
+                <p>Để xác định được TTTĐ của xâu \(S\), ta phải đếm số lượng xâu có TTTĐ nhỏ hơn \(S\) nằm trong tập \(G\) sau đó \(+1\) sẽ ra được chỉ số của xâu \(S\) trong tập \(G\).</p>
+                <h3 style="font-style: italic; color: #e4c0ea;">Ví dụ:</h3>
+                <p>Cho tập \(T = \) { “\(bob\)”, “\(toy\)”, “\(euh\)”, “\(aib\)”, “\(ara\)”}, cần tìm TTTĐ của xâu “\(euh\)” trong tập \(T\).</p>
+                <p>
+                    Tập \(T\) sau khi sắp xếp tăng dần sẽ có thứ tự như sau:<br>
+                    \(1: aib\)<br>
+                    \(2: ara\)<br>
+                    \(3: bob\)<br>
+                    \(4: euh\)<br>
+                    \(5: toy\)
+                </p>
+                <p>Có 3 xâu có TTTĐ nhỏ hơn xâu “\(euh\)” => TTTĐ của xâu “\(euh\)” trong \(T\) là \(3 + 1 = 4\)</p>
+                <h3 style="color:coral"><b>Quay lại bài toán: </b></h3>
+                <p><b>Thuận toán ngây thơ: </b>Xây dựng tất cả các xâu có trong \(G\) bằng đệ quy và tìm thứ tự của xâu \(S\).</p>
+                <p><b>Code tham khảo: </b></p>
+<pre>
+<span class="macro">#include</span>&lt;<span class="string">bits/stdc++.h</span>&gt;
+<span class="macro">#define</span> <span class="type">ll</span> <span class="string">long long</span>
+<span class="macro">#define</span> <span class="type">ld</span> <span class="string">long double</span>
+<span class="macro">#define</span> <span class="type">pii</span> <span class="string">pair&lt;int, int&gt;</span>
+<span class="macro">#define</span> <span class="type">pll</span> <span class="string">pair&lt;ll, ll&gt;</span>
+<span class="macro">#define</span> <span class="type">MASK</span>(i) ((1LL) &lt;&lt; (i))
+<span class="macro">#define</span> <span class="type">BIT</span>(x, i) (((x) &gt;&gt; (i)) &amp; 1)
+<span class="macro">#define</span> <span class="type">fi</span> <span class="string">first</span>
+<span class="macro">#define</span> <span class="type">se</span> <span class="string">second</span>
+
+<span class="keyword">using namespace</span> <span class="string">std</span>;
+
+<span class="keyword">const long</span> inf = 1e9 + 7;
+<span class="keyword">const long</span> mod = 1e9 + 7;
+<span class="keyword">const long</span> Nmax = 1e6 + 7;
+
+<span class="type">int</span> n;
+<span class="type">string</span> s;
+<span class="type">vector&lt;string&gt;</span> v;
+
+<span class="keyword">void</span> trau(<span class="type">int</span> i, <span class="type">string</span> a)
+{
+    <span class="comment">// Bắt đầu xây ký tự thứ i</span>
+    <span class="keyword">if</span> (i > n)
+    {
+        <span class="comment">// Đã xây xong, đẩy xâu xây được vào danh sách sau đó thoát vòng đệ quy</span>
+        v.push_back(a);
+        <span class="keyword">return</span>;
+    }
+
+    <span class="keyword">for</span> (char j = 'a'; j <= 'z'; j++)
+    {
+        <span class="comment">// Ta xây vị trí thứ i là ký tự j sau đó chuyển qua vị trí i + 1</span>
+        trau(i + 1, a + j);
+    }
+}
+
+<span class="keyword">int</span> main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    <span class="comment">//freopen("name.inp","r",stdin);</span>
+    <span class="comment">//freopen("name.out","w",stdout);</span>
+    cin &gt;&gt; n &gt;&gt; s;      <span class="comment">// nhập vào độ dài xâu S và xâu S</span>
+    s = ' ' + s;        <span class="comment">// đưa vị trí bắt đầu của xâu S về 1</span>
+
+    trau(1, " ");       <span class="comment">// xây dựng tất cả các xâu trong tập G</span>
+
+    <span class="comment">// Tìm xâu S trong G</span>
+    <span class="comment">// Không cần sort lại danh sách vì ta xây dựng xâu theo TTTĐ tăng dần</span>
+    <span class="keyword">for</span> (<span class="type">int</span> i = 0; i &lt; v.size(); i++)
+    {
+        <span class="keyword">if</span> (s == v[i])
+        {
+            <span class="comment">// Đã tìm thấy xâu S, xuất kết quả và dừng tìm kiếm</span>
+            cout &lt;&lt; i + 1;
+            <span class="keyword">break</span>;
+        }
+    }
+}
+    </pre>
+                <p><b>Độ phức tạp: </b>Ở mỗi vị trí có thể chọn bất kỳ ký tự nào từ “\(a\)” -> “\(z\)” nên số lượng cách chọn là \(26\), độ dài xâu tối đa là \(n\) => Độ phức tạp là \(O(26 ^ n)\).</p>
+                <p>Có thể thấy độ phức tạp \(O(26^n)\) là quá lớn, vì vậy chúng ta phải tối ưu thời gian.</p>
+                <p><b>Nhận xét: </b>Trong quá trình xây các xâu trong \(G\), vị trí i được gán ký tự \(j\) có thể bị lặp lại nhiều lần.</p>
+                <h3 style="font-style: italic; color: #e4c0ea;">Ví dụ:</h3>
+                <p>
+                    Xâu \(S\) chưa xây ký tự nào có độ dài là \(3\): “\(***\)”
+    <pre>
+i = 1:
+-Xây S[1] = ‘a’ ta được “a**”
+    i = 2: 
+    -Xây S[2] = ‘a’ ta được “aa*”
+        i = 3:
+            -Xây S[3] = ‘a’ ta được “aaa”
+            i = 4: Xâu đã xây xong, đưa vào G và thoát đệ quy.
+
+        -Xây S[3] = ‘b’ ta được “aab”
+            i = 4: Xâu đã xây xong, đưa vào G và thoát đệ quy.
+
+        …
+
+        -Xây S[3] = ‘z’ ta được “aaz”
+            i = 4: Xâu đã xây xong, đưa vào G và thoát đệ quy.
+
+    -Xây S[2] = ‘b’ ta được “ab*”
+        i = 3:
+            -Xây S[3] = ‘a’ ta được “aba”
+            i = 4: Xâu đã xây xong, đưa vào G và thoát đệ quy.
+
+        -Xây S[3] = ‘b’ ta được “abb”
+            i = 4: Xâu đã xây xong, đưa vào G và thoát đệ quy.
+
+        …
+
+        -Xây S[3] = ‘z’ ta được “abz”
+            i = 4: Xâu đã xây xong, đưa vào G và thoát đệ quy.
+    
+    -Xây S[2] = ‘c’ ta được “ac*”
+        i = 3:
+            -Xây S[3] = ‘a’ ta được “aca”
+            i = 4: Xâu đã xây xong, đưa vào G và thoát đệ quy.
+
+        -Xây S[3] = ‘b’ ta được “acb”
+            i = 4: Xâu đã xây xong, đưa vào G và thoát đệ quy.
+
+        …
+
+        -Xây S[3] = ‘z’ ta được “acz”
+            i = 4: Xâu đã xây xong, đưa vào G và thoát đệ quy.
+    …
+…                          
+                        </code></pre>
+                </p>
+                <p>Như vậy, ta thấy việc xây \(S[3] = \) ‘\(a\)’ được thực hiện nhiều lần, tương tự với các ký tự khác và các vị trí khác. Vì vậy chúng ta có thể sử dụng QHĐ để giảm độ phức tạp thời gian.</p>
+                <h2 style="color: #ff9245">Lưu ý:</h2>
+                <p>Nên code đệ quy có nhớ cho dễ cài.</p>
+                <p>
+                    Gọi \(dp[i][j]\) là số cách lượng xâu có vị trí \(i\) là ký tự \(j\).<br>
+                    \(\Rightarrow\) Công thức \(dp[i][j] = \) tổng các \(dp[i + 1][z]\) với \(z\) từ ‘\(a\)’ -> ‘\(z\)’<br>
+                </p>
+                <p><b>Code tham khảo</b></p>
+                    <pre>
+<span class="macro">#include</span> &lt;<span class="string">bits/stdc++.h</span>&gt;
+<span class="macro">#define</span> <span class="type">ll</span> <span class="string">long long</span>
+<span class="macro">#define</span> <span class="type">ld</span> <span class="string">long double</span>
+<span class="macro">#define</span> <span class="type">pii</span> <span class="string">pair&lt;int, int&gt;</span>
+<span class="macro">#define</span> <span class="type">pll</span> <span class="string">pair&lt;ll, ll&gt;</span>
+<span class="macro">#define</span> <span class="type">MASK</span>(i) ((1LL) &lt;&lt; (i))
+<span class="macro">#define</span> <span class="type">BIT</span>(x, i) (((x) &gt;&gt; (i)) &amp; 1)
+<span class="macro">#define</span> <span class="type">fi</span> <span class="string">first</span>
+<span class="macro">#define</span> <span class="type">se</span> <span class="string">second</span>
+
+<span class="keyword">using</span> namespace <span class="string">std</span>;
+
+<span class="keyword">const</span> <span class="type">long</span> inf = 1e9 + 7;
+<span class="keyword">const</span> <span class="type">long</span> mod = 1e9 + 7;
+<span class="keyword">const</span> <span class="type">long</span> Nmax = 1e6 + 7;
+
+<span class="type">int</span> n;
+<span class="type">string</span> s;
+<span class="type">ll</span> dp[Nmax][30];
+
+<span class="type">ll</span> trau(<span class="type">int</span> i, <span class="type">int</span> j)
+{
+    <span class="keyword">if</span> (i > n) dp[i][j] = 1;
+
+    <span class="keyword">if</span> (dp[i][j] != -1) <span class="keyword">return</span> dp[i][j];
+
+    <span class="type">ll</span> res = 0;
+    <span class="keyword">for</span> (char z = 'a'; z <= 'z'; z++) res += trau(i + 1, z - 'a' + 1);
+
+    dp[i][j] = res;
+    <span class="keyword">return</span> res;
+}
+
+<span class="keyword">int</span> main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    <span class="comment">// freopen("name.inp","r",stdin);</span>
+    <span class="comment">// freopen("name.out","w",stdout);</span>
+    cin &gt;&gt; n &gt;&gt; s;
+    s = ' ' + s;
+
+    memset(dp, -1, sizeof dp);
+    cout &lt;&lt; trau(1, 0);
+
+    <span class="type">ll</span> res = 0;
+    <span class="keyword">for</span> (<span class="type">int</span> i = 1; i &lt;= n; i++)
+    {
+        <span class="keyword">for</span> (<span class="type">int</span> j = 1; j &lt; s[i] - 'a' + 1; j++)
+        {
+            res += dp[i + 1][j];
+        }
+    }
+    cout &lt;&lt; res + 1;
+}
+            </pre>
+                <p><b>Độ phức tạp: </b>\(O(26 * n)\) vì hàm \(dp\) có tổng cộng \(26 * n\) trạng thái.</p>
+            </section>
+
+            <section class="BT2">
+                <h2 style="color: aqua;">2. Cho số \(k\), tìm xâu / dãy số / cấu hình có TTTĐ thứ \(k\)</h2>
+
+                <p><b>Bài toán:</b> Gọi \(G\) là tập hợp các xâu có độ \(n (n \leq 10^5)\), được tạo thành từ 26 chữ cái latinh in thường trong bảng chữ cái tiếng anh (“\(a\)” tới “\(z\)”). Cho số \(k\), tìm xâu thứ k sau khi tập \(G\) đã được sắp xếp theo TTTĐ tăng dần, nếu không có thì in ra \(-1\).</p>
+                <p>Việc giải quyết bài toán này cũng tương tự với bài toán ở trên. Chúng ta vẫn phải tính hàm mục tiêu \(dp[i][j]\). Từ đó, chúng ta sẽ tìm được xâu cần tìm bằng cách trừ dần số lượng xâu có TTTĐ nhỏ hơn xâu cần tìm.</p>
+                <p>Để tìm xâu có TTTĐ thứ \(k\), ta sẽ xét từng vị trí \(i\) từ trái sang phải, những cách xây xâu ở vị trí thứ \(i\) là ký tự \(j\) mà \(k \geq dp[i][j]\)</p>
+                <p>=> xâu cần tìm có vị trí thứ \(i\) là ký tự \(j\), nếu không, ta sẽ loại bỏ số xâu có vị trí thứ \(i\) là ký tự \(j\) \((k -= dp[i][j])\). Khi \(k = 0\) thì ta tìm được xâu cần tìm.</p>
+                <p><b>Code tham khảo: </b></p>
+<pre>
+<span class="macro">#include</span> &lt;<span class="string">bits/stdc++.h</span>&gt;
+<span class="macro">#define</span> <span class="type">ll</span> <span class="string">long long</span>
+<span class="macro">#define</span> <span class="type">ld</span> <span class="string">long double</span>
+<span class="macro">#define</span> <span class="type">pii</span> <span class="string">pair&lt;int, int&gt;</span>
+<span class="macro">#define</span> <span class="type">pll</span> <span class="string">pair&lt;ll, ll&gt;</span>
+<span class="macro">#define</span> <span class="type">MASK</span>(i) ((1LL) &lt;&lt; (i))
+<span class="macro">#define</span> <span class="type">BIT</span>(x, i) (((x) &gt;&gt; (i)) &amp; 1)
+<span class="macro">#define</span> <span class="type">fi</span> <span class="string">first</span>
+<span class="macro">#define</span> <span class="type">se</span> <span class="string">second</span>
+
+<span class="keyword">using</span> namespace <span class="string">std</span>;
+
+<span class="keyword">const</span> <span class="type">long</span> inf = 1e9 + 7;
+<span class="keyword">const</span> <span class="type">long</span> mod = 1e9 + 7;
+<span class="keyword">const</span> <span class="type">long</span> Nmax = 1e6 + 7;
+
+<span class="type">int</span> n;
+<span class="type">string</span> s;
+<span class="type">ll</span> dp[Nmax][30], k;
+
+<span class="type">ll</span> trau(<span class="type">int</span> i, <span class="type">int</span> j)
+{
+    <span class="keyword">if</span> (i > n) dp[i][j] = 1;
+
+    <span class="comment">// xét cấu hình dp[i][j], nếu đã được tính (khác -1)</span>
+    <span class="comment">// thì ta trả về dp[i][j], nếu không thì ta tính trạng</span>
+    <span class="comment">// thái này</span>
+    <span class="keyword">if</span> (dp[i][j] != -1) <span class="keyword">return</span> dp[i][j];
+
+    <span class="type">ll</span> res = 0;
+    <span class="keyword">for</span> (char z = 'a'; z <= 'z'; z++) res += trau(i + 1, z - 'a' + 1);
+
+    dp[i][j] = res;
+    <span class="keyword">return</span> res;
+}
+
+<span class="keyword">int</span> main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    <span class="comment">//freopen("name.inp","r",stdin);</span>
+    <span class="comment">//freopen("name.out","w",stdout);</span>
+    cin &gt;&gt; n;           <span class="comment">// nhập vào độ dài xâu S</span>
+    cin &gt;&gt; k;           <span class="comment">// TTTĐ của xâu cần tìm</span>
+    s = ' ' + s;        <span class="comment">// đưa vị trí bắt đầu của xâu S về 1</span>
+
+    memset(dp, -1, sizeof dp);
+    trau(1, 0);
+
+    <span class="comment">//tìm xâu có thứ tự từ điển thứ k</span>
+    k--;
+    string res;
+    <span class="keyword">for</span> (int i = 1; i <= n; i++)
+    {
+        <span class="keyword">for</span> (int j = 1; j <= 26; j++)
+        {
+            <span class="keyword">if</span> (k >= dp[i + 1][j]) k -= dp[i + 1][j];
+            <span class="comment">//số xâu có vị trí i là ký tự j <= số xâu cần tìm thì ta loại bỏ những xâu này</span>
+            <span class="keyword">else</span>
+            {
+                <span class="comment">// số xâu có vị trí i là ký tự j > số xâu cần thì xâu có vị trí i là ký tự j.</span>
+                res += (char)(j + 'a' - 1);
+                <span class="keyword">break</span>;
+            }
+        }
+    }
+    <span class="keyword">if</span> (k > 0) cout << -1;
+    <span class="keyword">else</span> cout << res;
+}
+    </pre>
+                <p><b>Độ phức tạp: <p><b>Độ phức tạp: </b>\(O(26 * n)\) vì hàm \(dp\) có tổng cộng \(26 * n\) trạng thái.</p>
+
+
+            </section>
+            
+        <!-- </div> -->
+    </main>
+
+    <script src="script.js"></script>
+    <footer>
+        <div class="row">
+            <div class="boxfooter1">
+                <h4>NHÓM THỰC HIỆN</h4>
+                <p>Trịnh Gia Huy <br> Vương Quốc Huy <br> Nguyễn Thành Tài <br> Phạm Quang Bôn </p>
+            </div>
+            <div class="boxfooter2">
+                <h4>LIÊN HỆ</h4>               
+                <p><b>Email:</b> huytg.ti.2225@gmail.com</p>
+                <p><b>SĐT:</b> 0123456789</p>
+            </div>
+        </div>
+        <div class="textcenter">
+            <hr>
+            <p>Bản quyền thuộc về cái nhóm nào đấy chưa có tên</p>
+        </div>
+    </footer>
+</body>
+</html>
